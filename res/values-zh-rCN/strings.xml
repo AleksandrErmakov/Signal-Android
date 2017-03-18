@@ -23,7 +23,7 @@
   <string name="ApplicationPreferencesActivity_disable">禁用</string>
   <string name="ApplicationPreferencesActivity_unregistering">反注册</string>
   <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">正在注销来自暗号的信息和呼叫…</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">禁用暗号信息和呼叫？</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">禁用暗号信息？</string>
   <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">注销暗号将会禁用暗号信息和呼叫。如果您还想使用该功能，则必须使用您的手机号码重新注册。</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">连接服务器错误！</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">已开启短信</string>
@@ -927,7 +927,7 @@
   <string name="preferences__theme">主题</string>
   <string name="preferences__default">默认</string>
   <string name="preferences__language">语言</string>
-  <string name="preferences__signal_messages_and_calls">暗号信息和呼叫</string>
+  <string name="preferences__signal_messages_and_calls">暗号信息</string>
   <string name="preferences__free_private_messages_and_calls">免费的加密信息和呼叫至暗号用户</string>
   <string name="preferences__submit_debug_log">提交调试日志</string>
   <string name="preferences__support_wifi_calling">“Wifi呼叫”兼容模式</string>
