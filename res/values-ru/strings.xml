@@ -1006,7 +1006,7 @@ SMS-подтверждения...
   <string name="preferences__theme">Тема</string>
   <string name="preferences__default">По умолчанию</string>
   <string name="preferences__language">Язык (Language)</string>
-  <string name="preferences__signal_messages_and_calls">Звонки и сообщения Signal</string>
+  <string name="preferences__signal_messages_and_calls">Сообщения Signal</string>
   <string name="preferences__free_private_messages_and_calls">Бесплатные приватные сообщения и звонки пользователям Signal</string>
   <string name="preferences__submit_debug_log">Отправить лог отладки</string>
   <string name="preferences__support_wifi_calling">Совместимость с Wi-Fi звонками</string>
