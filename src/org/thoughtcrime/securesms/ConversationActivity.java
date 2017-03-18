@@ -68,8 +68,8 @@ import com.google.protobuf.ByteString;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.thoughtcrime.redphone.RedPhone;
-import org.thoughtcrime.redphone.RedPhoneService;
+//import org.thoughtcrime.redphone.RedPhone;
+//import org.thoughtcrime.redphone.RedPhoneService;
 import org.thoughtcrime.securesms.TransportOptions.OnTransportChangedListener;
 import org.thoughtcrime.securesms.audio.AudioRecorder;
 import org.thoughtcrime.securesms.audio.AudioSlidePlayer;
@@ -264,7 +264,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         initializeDraft();
       }
     });
-    initializeBetaCalling();
+   // initializeBetaCalling();
   }
 
   @Override
@@ -499,8 +499,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   public boolean onOptionsItemSelected(MenuItem item) {
     super.onOptionsItemSelected(item);
     switch (item.getItemId()) {
-    case R.id.menu_call_secure:
-    case R.id.menu_call_insecure:             handleDial(getRecipients().getPrimaryRecipient()); return true;
+//    case R.id.menu_call_secure:
+//    case R.id.menu_call_insecure:             handleDial(getRecipients().getPrimaryRecipient()); return true;
     case R.id.menu_add_attachment:            handleAddAttachment();                             return true;
     case R.id.menu_view_media:                handleViewMedia();                                 return true;
     case R.id.menu_add_to_contacts:           handleAddToContacts();                             return true;
@@ -773,42 +773,42 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     }
   }
 
-  private void handleDial(final Recipient recipient) {
-    if (recipient == null) return;
-
-    if ((isSecureVideo && TextSecurePreferences.isWebrtcCallingEnabled(this)) ||
-        (isSecureText && TextSecurePreferences.isGcmDisabled(this)))
-    {
-      Intent intent = new Intent(this, WebRtcCallService.class);
-      intent.setAction(WebRtcCallService.ACTION_OUTGOING_CALL);
-      intent.putExtra(WebRtcCallService.EXTRA_REMOTE_NUMBER, recipient.getNumber());
-      startService(intent);
-
-      Intent activityIntent = new Intent(this, WebRtcCallActivity.class);
-      activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      startActivity(activityIntent);
-    } else if (isSecureText) {
-      Intent intent = new Intent(this, RedPhoneService.class);
-      intent.setAction(RedPhoneService.ACTION_OUTGOING_CALL);
-      intent.putExtra(RedPhoneService.EXTRA_REMOTE_NUMBER, recipient.getNumber());
-      startService(intent);
-
-      Intent activityIntent = new Intent(this, RedPhone.class);
-      activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-      startActivity(activityIntent);
-    } else {
-      try {
-        Intent dialIntent = new Intent(Intent.ACTION_DIAL,
-                                       Uri.parse("tel:" + recipient.getNumber()));
-        startActivity(dialIntent);
-      } catch (ActivityNotFoundException anfe) {
-        Log.w(TAG, anfe);
-        Dialogs.showAlertDialog(this,
-                                getString(R.string.ConversationActivity_calls_not_supported),
-                                getString(R.string.ConversationActivity_this_device_does_not_appear_to_support_dial_actions));
-      }
-    }
-  }
+//  private void handleDial(final Recipient recipient) {
+//    if (recipient == null) return;
+//
+//    if ((isSecureVideo && TextSecurePreferences.isWebrtcCallingEnabled(this)) ||
+//        (isSecureText && TextSecurePreferences.isGcmDisabled(this)))
+//    {
+//      Intent intent = new Intent(this, WebRtcCallService.class);
+//      intent.setAction(WebRtcCallService.ACTION_OUTGOING_CALL);
+//      intent.putExtra(WebRtcCallService.EXTRA_REMOTE_NUMBER, recipient.getNumber());
+//      startService(intent);
+//
+//      Intent activityIntent = new Intent(this, WebRtcCallActivity.class);
+//      activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//      startActivity(activityIntent);
+//    } else if (isSecureText) {
+//      Intent intent = new Intent(this, RedPhoneService.class);
+//      intent.setAction(RedPhoneService.ACTION_OUTGOING_CALL);
+//      intent.putExtra(RedPhoneService.EXTRA_REMOTE_NUMBER, recipient.getNumber());
+//      startService(intent);
+//
+//      Intent activityIntent = new Intent(this, RedPhone.class);
+//      activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//      startActivity(activityIntent);
+//    } else {
+//      try {
+//        Intent dialIntent = new Intent(Intent.ACTION_DIAL,
+//                                       Uri.parse("tel:" + recipient.getNumber()));
+//        startActivity(dialIntent);
+//      } catch (ActivityNotFoundException anfe) {
+//        Log.w(TAG, anfe);
+//        Dialogs.showAlertDialog(this,
+//                                getString(R.string.ConversationActivity_calls_not_supported),
+//                                getString(R.string.ConversationActivity_this_device_does_not_appear_to_support_dial_actions));
+//      }
+//    }
+//  }
 
   private void handleDisplayGroupRecipients() {
     new GroupMembersDialog(this, getRecipients()).display();
@@ -972,38 +972,38 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     return future;
   }
 
-  private void initializeBetaCalling() {
-    if (!TextSecurePreferences.isWebrtcCallingEnabled(this) || isGroupConversation()) {
-      return;
-    }
-
-    new Thread() {
-      @Override
-      public void run() {
-        try {
-          Context          context          = ConversationActivity.this;
-          UserCapabilities userCapabilities = DirectoryHelper.refreshDirectoryFor(context, masterSecret, recipients,
-                                                                                  TextSecurePreferences.getLocalNumber(context));
-
-
-          final boolean secureText  = userCapabilities.getTextCapability() == Capability.SUPPORTED;
-          final boolean secureVideo = userCapabilities.getVideoCapability() == Capability.SUPPORTED;
-          final boolean defaultSms  = Util.isDefaultSmsProvider(context);
-
-          Util.runOnMain(new Runnable() {
-            @Override
-            public void run() {
-              if (secureText != isSecureText || secureVideo != isSecureVideo || defaultSms != isDefaultSms) {
-                handleSecurityChange(secureText, secureVideo, defaultSms);
-              }
-            }
-          });
-        } catch (IOException e) {
-          Log.w(TAG, e);
-        }
-      }
-    }.start();
-  }
+//  private void initializeBetaCalling() {
+//    if (!TextSecurePreferences.isWebrtcCallingEnabled(this) || isGroupConversation()) {
+//      return;
+//    }
+//
+//    new Thread() {
+//      @Override
+//      public void run() {
+//        try {
+//          Context          context          = ConversationActivity.this;
+//          UserCapabilities userCapabilities = DirectoryHelper.refreshDirectoryFor(context, masterSecret, recipients,
+//                                                                                  TextSecurePreferences.getLocalNumber(context));
+//
+//
+//          final boolean secureText  = userCapabilities.getTextCapability() == Capability.SUPPORTED;
+//          final boolean secureVideo = userCapabilities.getVideoCapability() == Capability.SUPPORTED;
+//          final boolean defaultSms  = Util.isDefaultSmsProvider(context);
+//
+//          Util.runOnMain(new Runnable() {
+//            @Override
+//            public void run() {
+//              if (secureText != isSecureText || secureVideo != isSecureVideo || defaultSms != isDefaultSms) {
+//                handleSecurityChange(secureText, secureVideo, defaultSms);
+//              }
+//            }
+//          });
+//        } catch (IOException e) {
+//          Log.w(TAG, e);
+//        }
+//      }
+//    }.start();
+//  }
 
   private void onSecurityUpdated() {
     updateRecipientPreferences();

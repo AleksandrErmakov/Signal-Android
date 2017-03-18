@@ -22,10 +22,8 @@ import android.util.Pair;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.greenrobot.eventbus.EventBus;
-import org.thoughtcrime.redphone.RedPhoneService;
-import org.thoughtcrime.redphone.audio.IncomingRinger;
+//import org.thoughtcrime.redphone.RedPhoneService;
 import org.thoughtcrime.redphone.call.LockManager;
-import org.thoughtcrime.redphone.pstn.IncomingPstnCallReceiver;
 import org.thoughtcrime.redphone.util.AudioUtils;
 import org.thoughtcrime.redphone.util.UncaughtExceptionHandlerManager;
 import org.thoughtcrime.securesms.ApplicationContext;
@@ -151,11 +149,11 @@ public class WebRtcCallService extends Service implements InjectableType, PeerCo
 
   private SignalServiceMessageSender messageSender;
   private PeerConnectionFactory      peerConnectionFactory;
-  private IncomingRinger             incomingRinger;
+//  private IncomingRinger             incomingRinger;
   private OutgoingRinger             outgoingRinger;
   private LockManager                lockManager;
 
-  private IncomingPstnCallReceiver        callReceiver;
+//  private IncomingPstnCallReceiver        callReceiver;
   private UncaughtExceptionHandlerManager uncaughtExceptionHandlerManager;
 
   @Nullable private Long                   callId;
@@ -177,9 +175,9 @@ public class WebRtcCallService extends Service implements InjectableType, PeerCo
     super.onCreate();
 
     initializeResources();
-    initializeRingers();
+//    initializeRingers();
 
-    registerIncomingPstnCallReceiver();
+//    registerIncomingPstnCallReceiver();
     registerUncaughtExceptionHandler();
   }
 
@@ -188,68 +186,68 @@ public class WebRtcCallService extends Service implements InjectableType, PeerCo
     Log.w(TAG, "onStartCommand...");
     if (intent == null || intent.getAction() == null) return START_NOT_STICKY;
 
-    serviceExecutor.execute(new Runnable() {
-      @Override
-      public void run() {
-        if      (intent.getAction().equals(ACTION_INCOMING_CALL) && isBusy()) handleBusyCall(intent);
-        else if (intent.getAction().equals(ACTION_REMOTE_BUSY))               handleBusyMessage(intent);
-        else if (intent.getAction().equals(ACTION_INCOMING_CALL))             handleIncomingCall(intent);
-        else if (intent.getAction().equals(ACTION_OUTGOING_CALL) && isIdle()) handleOutgoingCall(intent);
-        else if (intent.getAction().equals(ACTION_ANSWER_CALL))               handleAnswerCall(intent);
-        else if (intent.getAction().equals(ACTION_DENY_CALL))                 handleDenyCall(intent);
-        else if (intent.getAction().equals(ACTION_LOCAL_HANGUP))              handleLocalHangup(intent);
-        else if (intent.getAction().equals(ACTION_REMOTE_HANGUP))             handleRemoteHangup(intent);
-        else if (intent.getAction().equals(ACTION_SET_MUTE_AUDIO))            handleSetMuteAudio(intent);
-        else if (intent.getAction().equals(ACTION_SET_MUTE_VIDEO))            handleSetMuteVideo(intent);
-        else if (intent.getAction().equals(ACTION_REMOTE_VIDEO_MUTE))         handleRemoteVideoMute(intent);
-        else if (intent.getAction().equals(ACTION_RESPONSE_MESSAGE))          handleResponseMessage(intent);
-        else if (intent.getAction().equals(ACTION_ICE_MESSAGE))               handleRemoteIceCandidate(intent);
-        else if (intent.getAction().equals(ACTION_ICE_CANDIDATE))             handleLocalIceCandidate(intent);
-        else if (intent.getAction().equals(ACTION_ICE_CONNECTED))             handleIceConnected(intent);
-        else if (intent.getAction().equals(ACTION_CALL_CONNECTED))            handleCallConnected(intent);
-        else if (intent.getAction().equals(ACTION_CHECK_TIMEOUT))             handleCheckTimeout(intent);
-        else if (intent.getAction().equals(ACTION_IS_IN_CALL_QUERY))          handleIsInCallQuery(intent);
-      }
-    });
+//    serviceExecutor.execute(new Runnable() {
+//      @Override
+//      public void run() {
+//        if      (intent.getAction().equals(ACTION_INCOMING_CALL) && isBusy()) handleBusyCall(intent);
+//        else if (intent.getAction().equals(ACTION_REMOTE_BUSY))               handleBusyMessage(intent);
+//        else if (intent.getAction().equals(ACTION_INCOMING_CALL))             handleIncomingCall(intent);
+//        else if (intent.getAction().equals(ACTION_OUTGOING_CALL) && isIdle()) handleOutgoingCall(intent);
+//        else if (intent.getAction().equals(ACTION_ANSWER_CALL))               handleAnswerCall(intent);
+//        else if (intent.getAction().equals(ACTION_DENY_CALL))                 handleDenyCall(intent);
+//        else if (intent.getAction().equals(ACTION_LOCAL_HANGUP))              handleLocalHangup(intent);
+//        else if (intent.getAction().equals(ACTION_REMOTE_HANGUP))             handleRemoteHangup(intent);
+//        else if (intent.getAction().equals(ACTION_SET_MUTE_AUDIO))            handleSetMuteAudio(intent);
+//        else if (intent.getAction().equals(ACTION_SET_MUTE_VIDEO))            handleSetMuteVideo(intent);
+//        else if (intent.getAction().equals(ACTION_REMOTE_VIDEO_MUTE))         handleRemoteVideoMute(intent);
+//        else if (intent.getAction().equals(ACTION_RESPONSE_MESSAGE))          handleResponseMessage(intent);
+//        else if (intent.getAction().equals(ACTION_ICE_MESSAGE))               handleRemoteIceCandidate(intent);
+//        else if (intent.getAction().equals(ACTION_ICE_CANDIDATE))             handleLocalIceCandidate(intent);
+//        else if (intent.getAction().equals(ACTION_ICE_CONNECTED))             handleIceConnected(intent);
+//        else if (intent.getAction().equals(ACTION_CALL_CONNECTED))            handleCallConnected(intent);
+//        else if (intent.getAction().equals(ACTION_CHECK_TIMEOUT))             handleCheckTimeout(intent);
+//        else if (intent.getAction().equals(ACTION_IS_IN_CALL_QUERY))          handleIsInCallQuery(intent);
+//      }
+//    });
 
     return START_NOT_STICKY;
   }
 
   @Override
   public void onDestroy() {
-    super.onDestroy();
-
-    if (callReceiver != null) {
-      unregisterReceiver(callReceiver);
-    }
-
-    if (uncaughtExceptionHandlerManager != null) {
-      uncaughtExceptionHandlerManager.unregister();
-    }
+//    super.onDestroy();
+//
+//    if (callReceiver != null) {
+//      unregisterReceiver(callReceiver);
+//    }
+//
+//    if (uncaughtExceptionHandlerManager != null) {
+//      uncaughtExceptionHandlerManager.unregister();
+//    }
   }
 
   // Initializers
 
   private void initializeRingers() {
     this.outgoingRinger = new OutgoingRinger(this);
-    this.incomingRinger = new IncomingRinger(this);
+//    this.incomingRinger = new IncomingRinger(this);
   }
 
   private void initializeResources() {
     ApplicationContext.getInstance(this).injectDependencies(this);
 
     this.callState             = CallState.STATE_IDLE;
-    this.lockManager           = new LockManager(this);
+//    this.lockManager           = new LockManager(this);
     this.peerConnectionFactory = new PeerConnectionFactory(new PeerConnectionFactoryOptions());
     this.messageSender         = messageSenderFactory.create();
     this.messageSender.setSoTimeoutMillis(TimeUnit.SECONDS.toMillis(10));
     this.accountManager.setSoTimeoutMillis(TimeUnit.SECONDS.toMillis(10));
   }
-
-  private void registerIncomingPstnCallReceiver() {
-    callReceiver = new IncomingPstnCallReceiver();
-    registerReceiver(callReceiver, new IntentFilter("android.intent.action.PHONE_STATE"));
-  }
+//
+//  private void registerIncomingPstnCallReceiver() {
+//    callReceiver = new IncomingPstnCallReceiver();
+//    registerReceiver(callReceiver, new IntentFilter("android.intent.action.PHONE_STATE"));
+//  }
 
   private void registerUncaughtExceptionHandler() {
     uncaughtExceptionHandlerManager = new UncaughtExceptionHandlerManager();
@@ -460,7 +458,7 @@ public class WebRtcCallService extends Service implements InjectableType, PeerCo
 
       sendMessage(WebRtcViewModel.State.CALL_INCOMING, recipient, localVideoEnabled, remoteVideoEnabled);
       startCallCardActivity();
-      incomingRinger.start();
+//      incomingRinger.start();
       CallNotificationManager.setCallInProgress(this, TYPE_INCOMING_RINGING, recipient);
     } else if (callState == CallState.STATE_DIALING) {
       if (this.recipient == null) throw new AssertionError("assert");
@@ -574,7 +572,7 @@ public class WebRtcCallService extends Service implements InjectableType, PeerCo
       throw new AssertionError("assert");
     }
 
-    incomingRinger.stop();
+//    incomingRinger.stop();
 
     DatabaseFactory.getSmsDatabase(this).insertReceivedCall(recipient.getNumber());
 
@@ -689,13 +687,13 @@ public class WebRtcCallService extends Service implements InjectableType, PeerCo
 
   /// Helper Methods
 
-  private boolean isBusy() {
-    TelephonyManager telephonyManager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
-
-    return callState != CallState.STATE_IDLE                                   ||
-           telephonyManager.getCallState() != TelephonyManager.CALL_STATE_IDLE ||
-           RedPhoneService.isCallActive(this);
-  }
+//  private boolean isBusy() {
+//    TelephonyManager telephonyManager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+//
+//    return callState != CallState.STATE_IDLE                                   ||
+//           telephonyManager.getCallState() != TelephonyManager.CALL_STATE_IDLE ||
+//           RedPhoneService.isCallActive(this);
+//  }
 
   private boolean isIdle() {
     return callState == CallState.STATE_IDLE;
@@ -744,7 +742,7 @@ public class WebRtcCallService extends Service implements InjectableType, PeerCo
     lockManager.updatePhoneState(LockManager.PhoneState.PROCESSING);
     CallNotificationManager.setCallEnded(this);
 
-    incomingRinger.stop();
+//    incomingRinger.stop();
     outgoingRinger.stop();
     outgoingRinger.playDisconnected();
 

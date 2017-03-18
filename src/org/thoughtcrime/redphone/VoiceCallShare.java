@@ -48,14 +48,14 @@ public class VoiceCallShare extends Activity {
               activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
               startActivity(activityIntent);
             } else {
-              Intent serviceIntent = new Intent(this, RedPhoneService.class);
-              serviceIntent.setAction(RedPhoneService.ACTION_OUTGOING_CALL);
-              serviceIntent.putExtra(RedPhoneService.EXTRA_REMOTE_NUMBER, destination);
-              startService(serviceIntent);
+//              Intent serviceIntent = new Intent(this, RedPhoneService.class);
+//              serviceIntent.setAction(RedPhoneService.ACTION_OUTGOING_CALL);
+//              serviceIntent.putExtra(RedPhoneService.EXTRA_REMOTE_NUMBER, destination);
+//              startService(serviceIntent);
 
-              Intent activityIntent = new Intent(this, RedPhone.class);
-              activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-              startActivity(activityIntent);
+//              Intent activityIntent = new Intent(this, RedPhone.class);
+//              activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//              startActivity(activityIntent);
             }
           }
         }
