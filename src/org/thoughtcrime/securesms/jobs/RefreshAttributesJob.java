@@ -3,8 +3,6 @@ package org.thoughtcrime.securesms.jobs;
 import android.content.Context;
 import android.util.Log;
 
-import org.thoughtcrime.redphone.signaling.RedPhoneAccountAttributes;
-import org.thoughtcrime.redphone.signaling.RedPhoneAccountManager;
 import org.thoughtcrime.securesms.dependencies.InjectableType;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.jobqueue.JobParameters;
@@ -23,7 +21,6 @@ public class RefreshAttributesJob extends ContextJob implements InjectableType {
   private static final String TAG = RefreshAttributesJob.class.getSimpleName();
 
   @Inject transient SignalServiceAccountManager signalAccountManager;
-  @Inject transient RedPhoneAccountManager      redPhoneAccountManager;
 
   public RefreshAttributesJob(Context context) {
     super(context, JobParameters.newBuilder()
@@ -47,7 +44,6 @@ public class RefreshAttributesJob extends ContextJob implements InjectableType {
 
     String token = signalAccountManager.getAccountVerificationToken();
 
-    redPhoneAccountManager.createAccount(token, new RedPhoneAccountAttributes(signalingKey, gcmRegistrationId));
     signalAccountManager.setAccountAttributes(signalingKey, registrationId, true, video || fetchesMessages, fetchesMessages);
   }
 

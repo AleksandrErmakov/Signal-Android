@@ -391,8 +391,7 @@
 
     <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
-    <service android:enabled="true" android:name="org.thoughtcrime.redphone.RedPhoneService"/>
-    <service android:enabled="true" android:name="org.thoughtcrime.securesms.service.WebRtcCallService"/>
+        <service android:enabled="true" android:name="org.thoughtcrime.securesms.service.WebRtcCallService"/>
 
     <service android:enabled="true" android:name=".service.ApplicationMigrationService"/>
     <service android:enabled="true" android:name=".service.KeyCachingService"/>

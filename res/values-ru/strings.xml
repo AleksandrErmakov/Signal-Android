@@ -29,8 +29,8 @@
   <string name="ApplicationPreferencesActivity_disable">Отключить</string>
   <string name="ApplicationPreferencesActivity_unregistering">Отмена регистрации</string>
   <string name="ApplicationPreferencesActivity_unregistering_from_signal_messages_and_calls">Отменяем регистрацию в Signal...</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Отключить сообщения и звонки через Signal?</string>
-  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Отключить сообщения и звонки через Signal, отменив регистрацию на сервере. Вам нужно будет заново зарегистрировать свой телефонный номер, чтобы воспользоваться ими в будущем.</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls">Отключить сообщения через Signal?</string>
+  <string name="ApplicationPreferencesActivity_disable_signal_messages_and_calls_by_unregistering">Отключить сообщения через Signal, отменив регистрацию на сервере. Вам нужно будет заново зарегистрировать свой телефонный номер, чтобы воспользоваться ими в будущем.</string>
   <string name="ApplicationPreferencesActivity_error_connecting_to_server">Ошибка при соединении с сервером!</string>
   <string name="ApplicationPreferencesActivity_sms_enabled">SMS включены</string>
   <string name="ApplicationPreferencesActivity_touch_to_change_your_default_sms_app">Нажмите для выбора SMS-приложения по умолчанию</string>

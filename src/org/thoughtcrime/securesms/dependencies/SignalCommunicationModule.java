@@ -27,7 +27,6 @@ import org.thoughtcrime.securesms.jobs.RotateSignedPreKeyJob;
 import org.thoughtcrime.securesms.push.SecurityEventListener;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.service.MessageRetrievalService;
-import org.thoughtcrime.securesms.service.WebRtcCallService;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
@@ -58,8 +57,7 @@ import dagger.Provides;
                                      RequestGroupInfoJob.class,
                                      PushGroupUpdateJob.class,
                                      AvatarDownloadJob.class,
-                                     RotateSignedPreKeyJob.class,
-                                     WebRtcCallService.class})
+                                     RotateSignedPreKeyJob.class,})
 public class SignalCommunicationModule {
 
   private final Context                    context;
