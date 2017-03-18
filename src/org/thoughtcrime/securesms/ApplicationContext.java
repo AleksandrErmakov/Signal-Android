@@ -144,7 +144,6 @@ public class ApplicationContext extends MultiDexApplication implements Dependenc
 
   private void initializeDependencyInjection() {
     this.objectGraph = ObjectGraph.create(new SignalCommunicationModule(this, new SignalServiceNetworkAccess(this)),
-                                          new RedPhoneCommunicationModule(this),
                                           new AxolotlStorageModule(this));
   }
 

@@ -40,8 +40,6 @@ import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.Log;
 
-import org.thoughtcrime.redphone.ui.NotificationBarManager;
-import org.thoughtcrime.redphone.util.Util;
 import org.thoughtcrime.securesms.ConversationActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
@@ -62,7 +60,6 @@ import org.thoughtcrime.securesms.service.MessageRetrievalService;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.SpanUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.webrtc.CallNotificationManager;
 import org.whispersystems.signalservice.api.messages.SignalServiceEnvelope;
 
 import java.util.HashSet;
@@ -131,21 +128,6 @@ public class MessageNotifier {
     NotificationManager notifications = ServiceUtil.getNotificationManager(context);
     notifications.cancel(SUMMARY_NOTIFICATION_ID);
 
-    if (Build.VERSION.SDK_INT >= 23) {
-      try {
-        StatusBarNotification[] activeNotifications = notifications.getActiveNotifications();
-
-        for (StatusBarNotification activeNotification : activeNotifications) {
-          if (activeNotification.getId() != NotificationBarManager.RED_PHONE_NOTIFICATION) {
-            notifications.cancel(activeNotification.getId());
-          }
-        }
-      } catch (Throwable e) {
-        // XXX Appears to be a ROM bug, see #6043
-        Log.w(TAG, e);
-        notifications.cancelAll();
-      }
-    }
   }
 
   private static void cancelOrphanedNotifications(@NonNull Context context, NotificationState notificationState) {
@@ -158,8 +140,6 @@ public class MessageNotifier {
           boolean validNotification = false;
 
           if (notification.getId() != SUMMARY_NOTIFICATION_ID &&
-              notification.getId() != NotificationBarManager.RED_PHONE_NOTIFICATION &&
-              notification.getId() != CallNotificationManager.WEBRTC_NOTIFICATION   &&
               notification.getId() != KeyCachingService.SERVICE_RUNNING_ID          &&
               notification.getId() != MessageRetrievalService.FOREGROUND_ID)
           {
@@ -592,10 +572,6 @@ public class MessageNotifier {
 
       long delayMillis = delayUntil - System.currentTimeMillis();
       Log.w(TAG, "Waiting to notify: " + delayMillis);
-
-      if (delayMillis > 0) {
-        Util.sleep(delayMillis);
-      }
 
       if (!canceled.get()) {
         Log.w(TAG, "Not canceled, notifying...");
