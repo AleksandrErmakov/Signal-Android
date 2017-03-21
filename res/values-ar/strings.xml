@@ -447,28 +447,7 @@
   <string name="RecipientPreferenceActivity_disabled">معطل</string>
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">مجموعة بلا اسم</string>
-  <!--RedPhone-->
-  <string name="RedPhone_answering">جارٍ الرد</string>
-  <string name="RedPhone_ending_call">جارٍ إنهاء المكالمة</string>
-  <string name="RedPhone_dialing">جارٍ الاتصال</string>
-  <string name="RedPhone_canceling_call">إلغاء المكالمة</string>
-  <string name="RedPhone_call_rejected">المكالمة رفضت</string>
-  <string name="RedPhone_ringing">رنين</string>
-  <string name="RedPhone_busy">مشغول</string>
-  <string name="RedPhone_connected">متصل</string>
-  <string name="RedPhone_connecting">جارٍ الاتصال</string>
-  <string name="RedPhone_handshake_failed">تأكيد الاتصال فشل!</string>
-  <string name="RedPhone_recipient_unavailable">المتلقي غير متاح</string>
-  <string name="RedPhone_performing_handshake">جارٍ تاكيد الاتصال</string>
-  <string name="RedPhone_network_failed">فشل في الشبكة!</string>
-  <string name="RedPhone_client_failed">فشل العميل</string>
-  <string name="RedPhone_fatal_error">خطأ فادح</string>
-  <string name="RedPhone_login_failed">تسجيل الدخول فشل!</string>
-  <string name="RedPhone_message_from_the_server">رسالة من الخادم</string>
-  <string name="RedPhone_number_not_registered">الرقم غير مسجل!</string>
-  <string name="RedPhone_the_number_you_dialed_does_not_support_secure_voice">الرقم المطلوب لا يدعم مكالمات صوتية مشفرة!</string>
-  <string name="RedPhone_got_it">عُلم</string>
-  <!--RegistrationActivity-->
+   <!--RegistrationActivity-->
   <string name="RegistrationActivity_connect_with_signal">التواصل بواسطة سيجنال</string>
   <string name="RegistrationActivity_select_your_country">اختر بلدك</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">يجب عليك تحديد رمز دولتك</string>
