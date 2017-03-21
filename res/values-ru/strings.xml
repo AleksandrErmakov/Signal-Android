@@ -443,27 +443,6 @@
   <string name="RecipientPreferenceActivity_available_once_a_message_has_been_sent_or_received">Доступно после отправки или получения сообщения.</string>
   <!--RecipientProvider-->
   <string name="RecipientProvider_unnamed_group">Безымянная группа</string>
-  <!--RedPhone-->
-  <string name="RedPhone_answering">Отвечаем</string>
-  <string name="RedPhone_ending_call">Завершаем звонок</string>
-  <string name="RedPhone_dialing">Набираем номер</string>
-  <string name="RedPhone_canceling_call">Отменяем звонок</string>
-  <string name="RedPhone_call_rejected">Звонок отклонён</string>
-  <string name="RedPhone_ringing">Звоним</string>
-  <string name="RedPhone_busy">Занято</string>
-  <string name="RedPhone_connected">Соединено</string>
-  <string name="RedPhone_connecting">Соединяемся</string>
-  <string name="RedPhone_handshake_failed">Ошибка при обмене ключами!</string>
-  <string name="RedPhone_recipient_unavailable">Абонент недоступен</string>
-  <string name="RedPhone_performing_handshake">Выполняем обмен ключами</string>
-  <string name="RedPhone_network_failed">Ошибка сети!</string>
-  <string name="RedPhone_client_failed">Ошибка клиента</string>
-  <string name="RedPhone_fatal_error">Фатальная ошибка</string>
-  <string name="RedPhone_login_failed">Не удалось войти!</string>
-  <string name="RedPhone_message_from_the_server">Сообщение от сервера</string>
-  <string name="RedPhone_number_not_registered">Номер не зарегистрирован!</string>
-  <string name="RedPhone_the_number_you_dialed_does_not_support_secure_voice">Вызываемый номер не поддерживает защищённые звонки!</string>
-  <string name="RedPhone_got_it">Понятно</string>
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_connect_with_signal">Подключение к Signal</string>
   <string name="RegistrationActivity_select_your_country">Выберите страну</string>
@@ -793,12 +772,6 @@
   <string name="recipient_preferences__color">Цвет</string>
   <string name="recipient_preferences__color_for_this_contact">Цвет для этого контакта</string>
   <string name="recipient_preferences__verify_safety_number">Подтвердить код безопасности</string>
-  <!--- redphone_call_controls-->
-  <string name="redphone_call_card__signal_call">Звонок через Signal</string>
-  <string name="redphone_call_controls__end_call">завершить звонок</string>
-  <string name="redphone_call_controls__audio">Аудио</string>
-  <string name="redphone_call_controls__mute">Откл. звук</string>
-  <string name="redphone_call_controls__signal_call">Звонок через Signal</string>
   <!--registration_activity-->
   <string name="registration_activity__verify_your_number_to_connect_with_signal">
 Подтвердите свой номер телефона, чтобы начать работу с Signal</string>
@@ -1147,10 +1120,6 @@ SMS-подтверждения...
   <string name="media_preview_activity__media_content_description">Предпросмотр</string>
   <!--new_conversation_activity-->
   <string name="new_conversation_activity__refresh">Обновить</string>
-  <!--redphone_audio_popup_menu-->
-  <string name="redphone_audio_popup_menu__handset">Динамик</string>
-  <string name="redphone_audio_popup_menu__headset">Гарнитура</string>
-  <string name="redphone_audio_popup_menu__speaker">Громкая связь</string>
   <!--Trimmer-->
   <string name="trimmer__deleting">Удаление</string>
   <string name="trimmer__deleting_old_messages">Удаляем старые сообщения...</string>

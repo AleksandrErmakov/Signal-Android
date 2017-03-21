@@ -308,7 +308,6 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
   }
 
   private void handleVerificationTimeout(RegistrationState state) {
-    this.callButton.setOnClickListener(new CallClickListener(state.number));
     this.verifyButton.setEnabled(false);
     this.codeEditText.setEnabled(false);
     this.registrationLayout.setVisibility(View.GONE);
@@ -551,93 +550,4 @@ public class RegistrationProgressActivity extends BaseActionBarActivity {
     }
   }
 
-  private class CallClickListener implements View.OnClickListener {
-
-    private static final int SUCCESS             = 0;
-    private static final int NETWORK_ERROR       = 1;
-    private static final int RATE_LIMIT_EXCEEDED = 2;
-    private static final int CREATE_ERROR        = 3;
-
-    private final String  e164number;
-    private final String password;
-    private final Context context;
-
-    public CallClickListener(String e164number) {
-      this.e164number   = e164number;
-      this.password     = Util.getSecret(18);
-      this.context      = RegistrationProgressActivity.this;
-    }
-
-    @Override
-    public void onClick(View v) {
-      new AsyncTask<Void, Void, Integer>() {
-        private ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-          progressDialog = ProgressDialog.show(context,
-                                               getString(R.string.RegistrationProgressActivity_requesting_call),
-                                               getString(R.string.RegistrationProgressActivity_requesting_incoming_call),
-                                               true, false);
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-          if (progressDialog != null) progressDialog.dismiss();
-
-          switch (result) {
-            case SUCCESS:
-              Intent intent = new Intent(context, RegistrationService.class);
-              intent.setAction(RegistrationService.VOICE_REQUESTED_ACTION);
-              intent.putExtra(RegistrationService.NUMBER_EXTRA, e164number);
-              intent.putExtra(RegistrationService.PASSWORD_EXTRA, password);
-              intent.putExtra(RegistrationService.MASTER_SECRET_EXTRA, masterSecret);
-              intent.putExtra(RegistrationService.GCM_SUPPORTED_EXTRA, gcmSupported);
-              startService(intent);
-
-              callButton.setEnabled(false);
-              new Handler().postDelayed(new Runnable(){
-                @Override
-                public void run() {
-                  callButton.setEnabled(true);
-                }
-              }, 15000);
-              break;
-            case NETWORK_ERROR:
-              Dialogs.showAlertDialog(context,
-                                   getString(R.string.RegistrationProgressActivity_network_error),
-                                   getString(R.string.RegistrationProgressActivity_unable_to_connect));
-              break;
-            case CREATE_ERROR:
-              Dialogs.showAlertDialog(context,
-                                   getString(R.string.RegistrationProgressActivity_server_error),
-                                   getString(R.string.RegistrationProgressActivity_the_server_encountered_an_error));
-              break;
-            case RATE_LIMIT_EXCEEDED:
-              Dialogs.showAlertDialog(context,
-                                   getString(R.string.RegistrationProgressActivity_too_many_requests),
-                                   getString(R.string.RegistrationProgressActivity_youve_already_requested_a_voice_call));
-              break;
-          }
-        }
-
-        @Override
-        protected Integer doInBackground(Void... params) {
-          try {
-            SignalServiceAccountManager accountManager = AccountManagerFactory.createManager(context, e164number, password);
-            accountManager.requestVoiceVerificationCode();
-
-            return SUCCESS;
-          } catch (RateLimitException e) {
-            Log.w(TAG, e);
-            return RATE_LIMIT_EXCEEDED;
-          } catch (IOException e) {
-            Log.w(TAG, e);
-            return NETWORK_ERROR;
-          }
-        }
-      }.execute();
-    }
-
-  }
 }

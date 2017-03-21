@@ -177,7 +177,6 @@
   <!--RatingManager-->
   <!--RecipientPreferencesActivity-->
   <!--RecipientProvider-->
-  <!--RedPhone-->
   <!--RegistrationActivity-->
   <string name="RegistrationActivity_select_your_country">Абярыце вашу краіну</string>
   <string name="RegistrationActivity_you_must_specify_your_country_code">Вы мусіце ўказаць код краіны</string>
@@ -350,7 +349,6 @@
   <!--prompt_mms_activity-->
   <!--recipient_preferences_activity-->
   <!--recipient_preferences-->
-  <!--- redphone_call_controls-->
   <!--registration_activity-->
   <string name="registration_activity__your_country">ВАША КРАІНА</string>
   <string name="registration_activity__your_country_code_and_phone_number">КОД ВАШАЙ КРАІНЫ І
@@ -552,7 +550,6 @@
   <!--media_overview-->
   <!--media_preview_activity-->
   <!--new_conversation_activity-->
-  <!--redphone_audio_popup_menu-->
   <!--Trimmer-->
   <string name="trimmer__deleting_old_messages">Выдаленне старых паведамленняў...</string>
   <string name="trimmer__old_messages_successfully_deleted">Старыя паведамленні паспяхова выдалены</string>

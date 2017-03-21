@@ -103,10 +103,6 @@ public class ConversationUpdateItem extends LinearLayout
   }
 
   private void setCallRecord(MessageRecord messageRecord) {
-    if      (messageRecord.isIncomingCall()) icon.setImageResource(R.drawable.ic_call_received_grey600_24dp);
-    else if (messageRecord.isOutgoingCall()) icon.setImageResource(R.drawable.ic_call_made_grey600_24dp);
-    else                                     icon.setImageResource(R.drawable.ic_call_missed_grey600_24dp);
-
     body.setText(messageRecord.getDisplayBody());
     date.setText(DateUtils.getExtendedRelativeTimeSpanString(getContext(), locale, messageRecord.getDateReceived()));
     date.setVisibility(View.VISIBLE);
