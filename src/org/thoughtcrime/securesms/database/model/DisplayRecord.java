@@ -127,18 +127,6 @@ public abstract class DisplayRecord {
     return SmsDatabase.Types.isJoinedType(type);
   }
 
-  public boolean isIncomingCall() {
-    return SmsDatabase.Types.isIncomingCall(type);
-  }
-
-  public boolean isOutgoingCall() {
-    return SmsDatabase.Types.isOutgoingCall(type);
-  }
-
-  public boolean isMissedCall() {
-    return SmsDatabase.Types.isMissedCall(type);
-  }
-
   public int getDeliveryStatus() {
     return deliveryStatus;
   }

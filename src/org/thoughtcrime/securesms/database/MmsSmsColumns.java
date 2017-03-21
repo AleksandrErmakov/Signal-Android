@@ -178,18 +178,6 @@ public interface MmsSmsColumns {
       return (type & EXPIRATION_TIMER_UPDATE_BIT) != 0;
     }
 
-    public static boolean isIncomingCall(long type) {
-      return type == INCOMING_CALL_TYPE;
-    }
-
-    public static boolean isOutgoingCall(long type) {
-      return type == OUTGOING_CALL_TYPE;
-    }
-
-    public static boolean isMissedCall(long type) {
-      return type == MISSED_CALL_TYPE;
-    }
-
     public static boolean isGroupUpdate(long type) {
       return (type & GROUP_UPDATE_BIT) != 0;
     }

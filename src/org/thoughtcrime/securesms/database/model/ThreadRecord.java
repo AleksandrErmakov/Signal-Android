@@ -93,12 +93,6 @@ public class ThreadRecord extends DisplayRecord {
     } else if (MmsSmsColumns.Types.isDraftMessageType(type)) {
       String draftText = context.getString(R.string.ThreadRecord_draft);
       return emphasisAdded(draftText + " " + getBody().getBody(), 0, draftText.length());
-    } else if (SmsDatabase.Types.isOutgoingCall(type)) {
-      return emphasisAdded(context.getString(org.thoughtcrime.securesms.R.string.ThreadRecord_called));
-    } else if (SmsDatabase.Types.isIncomingCall(type)) {
-      return emphasisAdded(context.getString(org.thoughtcrime.securesms.R.string.ThreadRecord_called_you));
-    } else if (SmsDatabase.Types.isMissedCall(type)) {
-      return emphasisAdded(context.getString(org.thoughtcrime.securesms.R.string.ThreadRecord_missed_call));
     } else if (SmsDatabase.Types.isJoinedType(type)) {
       return emphasisAdded(context.getString(R.string.ThreadRecord_s_is_on_signal_say_hey, getRecipients().getPrimaryRecipient().toShortString()));
     } else if (SmsDatabase.Types.isExpirationTimerUpdate(type)) {
