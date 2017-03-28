@@ -26,6 +26,9 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,9 +36,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.database.loaders.ConversationListLoader;
+import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.Recipients;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A fragment to select and share to open conversations
@@ -47,9 +55,9 @@ public class ShareFragment extends ListFragment implements LoaderManager.LoaderC
     private ConversationSelectedListener listener;
     private MasterSecret masterSecret;
     private Button mShareButton;
-    private long threadId;
-    private int distributionType;
     private Recipients recipients;
+    private Map<Recipient, Boolean> forwards;
+    private int counter = 0;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -62,7 +70,7 @@ public class ShareFragment extends ListFragment implements LoaderManager.LoaderC
         View view = inflater.inflate(R.layout.share_fragment, container, false);
         mShareButton = (Button) view.findViewById(R.id.forward_messages);
 
-
+        mShareButton.setEnabled(false);
         mShareButton.setOnClickListener(this);
         return view;
     }
@@ -91,36 +99,29 @@ public class ShareFragment extends ListFragment implements LoaderManager.LoaderC
     public void onListItemClick(ListView l, View v, int position, long id) {
         if (v instanceof ShareListItem) {
             ShareListItem headerView = (ShareListItem) v;
-            v.setBackgroundColor(Color.DKGRAY);
-
-            String prompt =
-                    "clicked item: " + getListView().getItemAtPosition(position).toString() + "\n\n";
-
-            prompt += "selected items: \n";
-            int count = getListView().getCount();
-            SparseBooleanArray sparseBooleanArray = getListView().getCheckedItemPositions();
-            for (int i = 0; i < count; i++) {
-                if (sparseBooleanArray.get(i)) {
-                    prompt += getListView().getItemAtPosition(i).toString() + "\n";
+            Recipient recipient = headerView.getRecipients().getPrimaryRecipient();
+            if (forwards == null) {
+                forwards = new HashMap<>();
+                forwards.put(recipient, Boolean.TRUE);
+                recipients = headerView.getRecipients();
+                headerView.setBackgroundColor(MaterialColor.LIGHT_BLUE.toConversationColor(getContext()));
+                counter++;
+            } else {
+                if (forwards.keySet().contains(recipient) && forwards.get(recipient)) {
+                    forwards.put(recipient, Boolean.FALSE);
+                    headerView.setBackgroundColor(Color.TRANSPARENT);
+                    counter--;
+                } else {
+                    forwards.put(recipient, Boolean.TRUE);
+                    headerView.setBackgroundColor(MaterialColor.LIGHT_BLUE.toConversationColor(getContext()));
+                    counter++;
                 }
             }
-
-            Toast.makeText(
-                    getActivity(),
-                    prompt,
-                    Toast.LENGTH_LONG).show();
-            threadId = headerView.getThreadId();
-            distributionType = headerView.getDistributionType();
-            if(recipients==null){
-                recipients = headerView.getRecipients();
-            }else{
-                recipients.getRecipientsList().addAll(headerView.getRecipients().getRecipientsList());
-
+            if(counter==0){
+                mShareButton.setEnabled(false);
+            }else {
+                mShareButton.setEnabled(true);
             }
-
-
-            //handleCreateConversation(headerView.getThreadId(), headerView.getRecipients(),
-            //                        headerView.getDistributionType());
         }
     }
 
@@ -151,15 +152,18 @@ public class ShareFragment extends ListFragment implements LoaderManager.LoaderC
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(
-                getActivity(),
-                "TA DAAAAA!!!",
-                Toast.LENGTH_LONG).show();
-
-
-        handleCreateConversation(threadId, recipients,
-                distributionType);
+        for (Recipient recipient : forwards.keySet()) {
+            if (forwards.get(recipient)) {
+                if (!recipients.getRecipientsList().contains(recipient)) {
+                    recipients.getRecipientsList().add(recipient);
+                }
+            } else {
+                recipients.getRecipientsList().remove(recipient);
+            }
+        }
+        handleCreateConversation(-1, recipients, 0);
     }
+
 
     public interface ConversationSelectedListener {
         public void onCreateConversation(long threadId, Recipients recipients, int distributionType);

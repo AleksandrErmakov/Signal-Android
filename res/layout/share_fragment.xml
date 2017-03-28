@@ -10,7 +10,7 @@
             android:id="@+id/forward_messages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="Share" />
 
         <ListView android:id="@android:id/list"
                   android:layout_width="fill_parent"
