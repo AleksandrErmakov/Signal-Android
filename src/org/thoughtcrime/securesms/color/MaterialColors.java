@@ -35,6 +35,8 @@ public class MaterialColors {
     MaterialColor.BLUE_GREY
   )));
 
+  public static final MaterialColorList BACKGROUND_PALETTE = CONVERSATION_PALETTE;
+
   public static class MaterialColorList {
 
     private final List<MaterialColor> colors;
@@ -73,7 +75,4 @@ public class MaterialColors {
     }
 
   }
-
-
 }
-

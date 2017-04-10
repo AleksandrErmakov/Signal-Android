@@ -61,7 +61,7 @@ public class CanvasView extends View {
 
   // for Eraser
 //  private int baseColor = Color.WHITE;
-  private int baseColor = Color.TRANSPARENT;
+  private int baseColor = Color.YELLOW;
 
   // for Undo, Redo
   private int historyPointer = 0;

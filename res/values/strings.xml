@@ -841,7 +841,7 @@
     <string name="recipient_preferences__vibrate">Vibrate</string>
     <string name="recipient_preferences__block">Block</string>
     <string name="recipient_preferences__color">Color</string>
-    <string name="recipient_preferences__color_for_this_contact">Color for this contact</string>
+    <string name="recipient_preferences__color_for_this_contact">Color for this vasyan</string>
     <string name="recipient_preferences__verify_safety_number">Verify safety number</string>
 
     <!-- registration_activity -->
@@ -1082,6 +1082,11 @@
     <string name="preferences__theme">Theme</string>
     <string name="preferences__default">Default</string>
     <string name="preferences__language">Language</string>
+    <string name="preferences__color">App color</string>
+    <string name="preferences__color_summary">Set the color of Signal</string>
+    <!--<string name="preferences__bgcolor_red">App color</string>
+    <string name="preferences__bgcolor_green">App color</string>
+    <string name="preferences__bgcolor_purple">App color</string>-->
     <string name="preferences__signal_messages_and_calls">Signal messages</string>
     <string name="preferences__free_private_messages_and_calls">Free private messages to Signal users</string>
     <string name="preferences__submit_debug_log">Submit debug log</string>

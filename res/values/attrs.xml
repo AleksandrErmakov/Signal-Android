@@ -143,6 +143,12 @@
         <attr name="numColumns" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="ColorBackgroundPreference">
+        <attr name="itemBgLayout" format="reference" />
+        <attr name="bgchoices" format="reference" />
+        <attr name="bgnumColumns" format="integer" />
+    </declare-styleable>
+
     <declare-styleable name="AvatarImageView">
         <attr name="inverted" format="boolean" />
     </declare-styleable>

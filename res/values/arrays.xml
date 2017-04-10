@@ -92,6 +92,17 @@
       <item>dark</item>
   </string-array>
 
+    <!--<string-array name="pref_color_entries">
+        <item>@string/preferences__bgcolor_red</item>
+        <item>@string/preferences__bgcolor_green</item>
+        <item>@string/preferences__bgcolor_purple</item>
+    </string-array>
+
+    <string-array name="pref_color_values" translatable="false">
+        <item>light</item>
+        <item>dark</item>
+    </string-array>-->
+
   <string-array name="pref_led_color_entries">
     <item>@string/preferences__green</item>
     <item>@string/preferences__red</item>
@@ -260,5 +271,11 @@
         <item>#00ffff</item>
         <item>#ff00ff</item>
     </array>
+
+    <string-array name="default_color_choice_values">
+        <item>RED</item>
+        <item>PINK</item>
+        <item>PURPLE</item>
+    </string-array>
 
 </resources>
