@@ -34,6 +34,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -100,6 +101,7 @@ public class ConversationItem extends LinearLayout
   protected View             bodyBubble;
   private TextView           bodyText;
   private TextView           dateText;
+  //private Button             dateText;//MHR
   private TextView           simInfoText;
   private TextView           indicatorText;
   private TextView           groupStatusText;

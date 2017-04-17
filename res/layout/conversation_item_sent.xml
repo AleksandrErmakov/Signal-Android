@@ -81,8 +81,9 @@
                           android:visibility="gone"
                           android:layout_marginRight="8dip"
                           android:paddingTop="1dip" />
-
-                <TextView android:id="@+id/conversation_item_date"
+                <!--//MHR  change 3-->
+                <!--<TextView android:id="@+id/conversation_item_date"-->
+                <Button android:id="@+id/conversation_item_date"
                           android:autoLink="none"
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
