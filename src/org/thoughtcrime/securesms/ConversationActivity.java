@@ -239,8 +239,9 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 //    MHR
     private DatePicker datePicker;
     private Calendar calendar;
-    private TextView dateView;
     private int year, month, day;
+
+
     @Override
     protected void onPreCreate() {
         dynamicTheme.onCreate(this);
@@ -744,14 +745,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         intent.putExtra(MediaOverviewActivity.RECIPIENT_EXTRA, recipients.getPrimaryRecipient().getRecipientId());
         startActivity(intent);
     }
-//MHR start 1
-//@SuppressWarnings("deprecation")
-//public void setDate(View view) {
-//    showDialog(999);
-//    Toast.makeText(getApplicationContext(), "ca",
-//            Toast.LENGTH_SHORT)
-//            .show();
-//}
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -772,30 +765,31 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
                     // arg1 = year
                     // arg2 = month
                     // arg3 = day
-                    showDate(arg1, arg2+1, arg3);
+                    scrollToDate(arg1, arg2, arg3);
                 }
             };
 
-    private void showDate(int year, int month, int day) {
-        dateView.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
+    private void scrollToDate(int year, int month, int day) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+        c.set(Calendar.HOUR, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        long timestamp = c.getTimeInMillis();
+        fragment.scrollToDate(timestamp);
+        return;
     }
-//    MHR end 1
+
     private void handleScrollToDate() {
-//           Roman
-//        Toast.makeText(this, ";)",
-//                Toast.LENGTH_LONG).show();
-//        return;
-//        MHR
-          showDialog(999);
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
 
-//        calendar = Calendar.getInstance();
-//        year = calendar.get(Calendar.YEAR);
-//
-//        month = calendar.get(Calendar.MONTH);
-//        day = calendar.get(Calendar.DAY_OF_MONTH);
-//        showDate(year, month+1, day);
-
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        showDialog(999);
     }
 
     private void handleLeavePushGroup() {

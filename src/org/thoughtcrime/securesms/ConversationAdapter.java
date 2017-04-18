@@ -349,6 +349,19 @@ public class ConversationAdapter <V extends View & BindableConversationItem>
     else                            return messageRecord.getDateReceived();
   }
 
+  public long getTimestamp(int position) {
+    if (!isActiveCursor())          return 0;
+    if (isHeaderPosition(position)) return 0;
+    if (isFooterPosition(position)) return 0;
+    if (position >= getItemCount()) return 0;
+    if (position < 0)               return 0;
+
+    Cursor        cursor        = getCursorAtPositionOrThrow(position);
+    MessageRecord messageRecord = getMessageRecord(cursor);
+
+    return messageRecord.getTimestamp();
+  }
+
   @Override
   public HeaderViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
     return new HeaderViewHolder(LayoutInflater.from(getContext()).inflate(R.layout.conversation_item_header, parent, false));

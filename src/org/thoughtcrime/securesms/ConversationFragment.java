@@ -265,6 +265,19 @@ public class ConversationFragment extends Fragment
     list.smoothScrollToPosition(0);
   }
 
+  public void scrollToDate(long timestamp) {
+    ConversationAdapter adapter = (ConversationAdapter) list.getAdapter();
+    int position = 0;
+    while (timestamp <= adapter.getTimestamp(position)) {
+      position++;
+    }
+    if (position!=0) {
+      position--;
+    }
+    list.smoothScrollToPosition(position);
+    return;
+  }
+
   public void setLastSeen(long lastSeen) {
     this.lastSeen = lastSeen;
     if (lastSeenDecoration != null) {
