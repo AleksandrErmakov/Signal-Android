@@ -48,6 +48,7 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
 public class ApplicationPreferencesActivity extends PassphraseRequiredActionBarActivity
     implements SharedPreferences.OnSharedPreferenceChangeListener
+
 {
   private static final String TAG = ApplicationPreferencesActivity.class.getSimpleName();
 

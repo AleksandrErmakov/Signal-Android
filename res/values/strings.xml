@@ -1176,6 +1176,7 @@
     <string name="conversation__menu_leave_group">Leave group</string>
     <string name="conversation__menu_delete_thread">Delete conversation</string>
     <string name="conversation__menu_view_all_media">All media</string>
+    <string name="conversation__menu_scroll_to_date">Scroll to date</string>
     <string name="conversation__menu_conversation_settings">Conversation settings</string>
 
     <!-- conversation_popup -->

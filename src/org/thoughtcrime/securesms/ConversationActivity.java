@@ -17,6 +17,8 @@
 package org.thoughtcrime.securesms;
 
 import android.annotation.TargetApi;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -57,6 +59,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -151,6 +154,7 @@ import org.whispersystems.libsignal.util.guava.Optional;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -232,6 +236,11 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     private DynamicTheme dynamicTheme = new DynamicTheme();
     private DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
+//    MHR
+    private DatePicker datePicker;
+    private Calendar calendar;
+    private TextView dateView;
+    private int year, month, day;
     @Override
     protected void onPreCreate() {
         dynamicTheme.onCreate(this);
@@ -441,7 +450,17 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
                 final MenuItem item = menu.findItem(R.id.menu_expiring_messages);
                 final View actionView = MenuItemCompat.getActionView(item);
                 final TextView badgeView = (TextView) actionView.findViewById(R.id.expiration_badge);
+                // MHR
+                final Button button = (Button) findViewById(R.id.conversation_item_date);
 
+                button.setOnClickListener(new OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        Toast.makeText(getApplicationContext(), "ca",
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                });
                 badgeView.setText(ExpirationUtil.getExpirationAbbreviatedDisplayValue(this, recipients.getExpireMessages()));
                 actionView.setOnClickListener(new OnClickListener() {
                     @Override
@@ -501,6 +520,9 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
                 return true;
             case R.id.menu_view_media:
                 handleViewMedia();
+                return true;
+            case R.id.menu_scroll_to_date:
+                handleScrollToDate();
                 return true;
             case R.id.menu_add_to_contacts:
                 handleAddToContacts();
@@ -622,6 +644,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         titleView.performClick();
     }
 
+
     private void handleUnmuteNotifications() {
         recipients.setMuted(0);
 
@@ -720,6 +743,59 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         intent.putExtra(MediaOverviewActivity.THREAD_ID_EXTRA, threadId);
         intent.putExtra(MediaOverviewActivity.RECIPIENT_EXTRA, recipients.getPrimaryRecipient().getRecipientId());
         startActivity(intent);
+    }
+//MHR start 1
+//@SuppressWarnings("deprecation")
+//public void setDate(View view) {
+//    showDialog(999);
+//    Toast.makeText(getApplicationContext(), "ca",
+//            Toast.LENGTH_SHORT)
+//            .show();
+//}
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this,
+                    myDateListener, year, month, day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener myDateListener = new
+            DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker arg0,
+                                      int arg1, int arg2, int arg3) {
+                    // TODO Auto-generated method stub
+                    // arg1 = year
+                    // arg2 = month
+                    // arg3 = day
+                    showDate(arg1, arg2+1, arg3);
+                }
+            };
+
+    private void showDate(int year, int month, int day) {
+        dateView.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+    }
+//    MHR end 1
+    private void handleScrollToDate() {
+//           Roman
+//        Toast.makeText(this, ";)",
+//                Toast.LENGTH_LONG).show();
+//        return;
+//        MHR
+          showDialog(999);
+
+//        calendar = Calendar.getInstance();
+//        year = calendar.get(Calendar.YEAR);
+//
+//        month = calendar.get(Calendar.MONTH);
+//        day = calendar.get(Calendar.DAY_OF_MONTH);
+//        showDate(year, month+1, day);
+
     }
 
     private void handleLeavePushGroup() {

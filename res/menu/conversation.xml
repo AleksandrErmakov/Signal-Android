@@ -7,6 +7,9 @@
     <item android:title="@string/conversation__menu_view_all_media"
           android:id="@+id/menu_view_media" />
 
+    <item android:title="@string/conversation__menu_scroll_to_date"
+        android:id="@+id/menu_scroll_to_date" />
+
     <item android:title="@string/conversation__menu_conversation_settings"
           android:id="@+id/menu_conversation_settings"/>
 
